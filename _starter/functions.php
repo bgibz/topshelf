@@ -81,7 +81,7 @@ if ( ! function_exists( '_starter_setup' ) ) :
 					'default-image' => '',
 				)
 			)
-		);
+		); 
 
 		// Add theme support for selective refresh for widgets.
 		add_theme_support( 'customize-selective-refresh-widgets' );
@@ -175,9 +175,17 @@ require get_template_directory() . '/inc/template-functions.php';
 require get_template_directory() . '/inc/customizer.php';
 
 /**
+ * Custom Admin panel
+ */
+require get_template_directory() . '/inc/function_admin.php';
+require get_template_directory() . '/inc/enqueue.php';
+require get_template_directory() . '/inc/theme_support.php';
+
+/**
  * Load Jetpack compatibility file.
  */
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
+?>

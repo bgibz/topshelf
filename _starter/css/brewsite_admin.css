@@ -1,0 +1,47 @@
+/*
+    @package brewsite theme
+*/
+.brewsite-admin-form,
+.brewsite-sidebar-preview {
+  display: inline-blog;
+  float: left;
+}
+
+.brewsite-sidebar-preview {
+  width: 288px;
+  background-color: #1f1f1f;
+  padding: 20px;
+  text-align: center;
+  margin-right: 20px;
+}
+
+h1.brewsite-name,
+h2.brewsite-tagline {
+  font-weight: 100;
+  color: #ffffff;
+}
+h1.brewsite-name {
+  font-size: 24px;
+  margin: 0 0 10px;
+}
+h2.brewsite-tagline {
+  font-size: 13px;
+  margin: 0 0 20px;
+}
+
+.image-container {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+}
+.display-img {
+  width: 122px;
+  height: 122px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: 20px auto;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
