@@ -16,6 +16,9 @@ if( @$contact == 1 ){
 
     add_filter( 'manage_brewsite_contact_posts_columns', 'brewsite_set_contact_columns' );
     add_action( 'manage_brewsite_contact_posts_custom_column', 'brewsite_contact_custom_column', 10, 2 );
+
+    add_action( 'add_meta_boxes', 'brewsite_contact_add_meta_box' );
+    add_action( 'save_post', 'brewsite_save_contact_email_data'); 
 }
 
 /* Contact CPT */
@@ -60,14 +63,53 @@ function brewsite_contact_custom_column( $column, $post_id ){
 			break;
 			
 		case 'email' :
-			//email column
-			echo 'email address';
+            //email column
+            $email = get_post_meta( $post_id, '_contact_email_value_key', true );
+			echo '<a href="mailto:'.$email.'">'.$email.'</a>';
 			break;
 	}	
 }
 
+/* Meta Box */
 
+function brewsite_contact_add_meta_box() {
+    add_meta_box( 'contact_email', 'Contact Email', 'brewsite_contact_email_callback', 'brewsite_contact', 'normal', 'high' );   
+}
 
+function brewsite_contact_email_callback( $post ){
+    wp_nonce_field( 'brewsite_save_contact_email_data', 'brewsite_contact_email_meta_box_nonce' );
+	
+	$value = get_post_meta( $post->ID, '_contact_email_value_key', true );
+	
+	echo '<label for="brewsite_contact_email_field">User Email Address: </lable>';
+	echo '<input type="email" id="brewsite_contact_email_field" name="brewsite_contact_email_field" value="' . esc_attr( $value ) . '" size="25" />';
+}
 
-
+function brewsite_save_contact_email_data( $post_id ) {
+	// check if nonce is set
+	if( ! isset( $_POST['brewsite_contact_email_meta_box_nonce'] ) ){
+		return;
+	}
+	// verify nonce
+	if( ! wp_verify_nonce( $_POST['brewsite_contact_email_meta_box_nonce'], 'brewsite_save_contact_email_data') ) {
+		return;
+	}
+	// check is autosave
+	if( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ){
+		return;
+	}
+	// check user permissions
+	if( ! current_user_can( 'edit_post', $post_id ) ) {
+		return;
+	}
+	// check if email has been set
+	if( ! isset( $_POST['brewsite_contact_email_field'] ) ) {
+		return;
+	}
+	
+	$my_data = sanitize_text_field( $_POST['brewsite_contact_email_field'] );
+	
+	update_post_meta( $post_id, '_contact_email_value_key', $my_data );
+	
+}
 
