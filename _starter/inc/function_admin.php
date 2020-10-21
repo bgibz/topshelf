@@ -15,8 +15,9 @@ function brewsite_add_admin_page() {
 
     // Generate brewsite admin sub pages
     add_submenu_page( 'brewsite_theme',  'BrewSite Theme Options', 'Theme Settings', 'manage_options', 'brewsite_theme', 'brewsite_admin_create_page' );
-    add_submenu_page( 'brewsite_theme',  'BrewSite CSS Options', 'Custom Styling', 'manage_options', 'brewsite_theme_css', 'brewsite_css_settings' );
     add_submenu_page( 'brewsite_theme',  'BrewSite Theme Support', 'Theme Support', 'manage_options', 'brewsite_support', 'brewsite_theme_admin_page' );
+    add_submenu_page( 'brewsite_theme',  'BrewSite Contact Form', 'Contact Form', 'manage_options', ' brewsite_theme_contact', 'brewsite_theme_contact_page' );
+    add_submenu_page( 'brewsite_theme',  'BrewSite CSS Options', 'Custom Styling', 'manage_options', 'brewsite_theme_css', 'brewsite_css_settings' );
 
     // Custom Settings
     add_action( 'admin_init', 'brewsite_custom_settings' );
@@ -44,10 +45,29 @@ function brewsite_custom_settings() {
 
     //add_settings_field( 'brewsite-post-formats', 'Post Formats', 'brewsite_post_formats', 'brewsite_support', 'brewsite-theme-options' );
     add_settings_field( 'custom-header', 'Custom Header', 'brewsite_custom_header', 'brewsite_support', 'brewsite-theme-options' );
-	add_settings_field( 'custom-background', 'Custom Background', 'brewsite_custom_background', 'brewsite_support', 'brewsite-theme-options' );
+    add_settings_field( 'custom-background', 'Custom Background', 'brewsite_custom_background', 'brewsite_support', 'brewsite-theme-options' );
+    
+    // Contact Form Options
+    register_setting( 'brewsite-contact-options', 'activate_contact_form');
+    add_settings_section( 'brewsite-contact-section', 'Contact Form', 'brewsite_contact_section', 'brewsite_theme_contact' );
+    add_settings_field( 'activate-contact-form', 'Activate Contact Form', 'brewsite_activate_contact', 'brewsite_theme_contact', 'brewsite-contact-section' );
 
 }
 
+// Submenu Functions
+function brewsite_admin_create_page() {
+    require_once( get_template_directory() . '/inc/templates/brewsite_admin.php');
+}
+
+function brewsite_theme_admin_page() {
+    require_once( get_template_directory() . '/inc/templates/brewsite_theme_support.php' );
+}
+
+function brewsite_theme_contact_page() {
+    require_once( get_template_directory() . '/inc/templates/brewsite_contact_form.php' );
+}
+
+// Header Options
 function brewsite_sidebar_options() {
     echo 'Customize Sidebar Information';
 }
@@ -67,35 +87,16 @@ function brewsite_sidebar_tagline() {
     echo '<input type="text" name="brewery_tagline" value="'.$breweryTagline.'" placeholder="Tagline" />';
 }
 
-function brewsite_admin_create_page() {
-    require_once( get_template_directory() . '/inc/templates/brewsite_admin.php');
-}
-
 function brewsite_css_settings() {
     // generate admin page for custom css
     echo '<h1>Customize CSS</h1>';
 }
 
 // Theme Support Options
-function brewsite_theme_admin_page() {
-    require_once( get_template_directory() . '/inc/templates/brewsite_theme_support.php' );
-}
-
 function brewsite_theme_options() {
     echo 'Activate/Deactivate Theme Support Options';
 }
-/*
-function brewsite_post_formats() {
-    $options = get_option( 'post_formats' );
-	$formats = array( 'aside', 'gallery', 'link', 'image', 'quote', 'status', 'video', 'audio', 'chat' );
-	$output = '';
-	foreach ( $formats as $format ){
-		$checked = ( @$options[$format] == 1 ? 'checked' : '' );
-		$output .= '<label><input type="checkbox" id="'.$format.'" name="post_formats['.$format.']" value="1" '.$checked.' /> '.$format.'</label><br>';
-	}
-	echo $output;
-}
-*/
+
 function brewsite_custom_header() {
 	$options = get_option( 'custom_header' );
 	$checked = ( @$options == 1 ? 'checked' : '' );
@@ -107,9 +108,31 @@ function brewsite_custom_background() {
 	$checked = ( @$options == 1 ? 'checked' : '' );
 	echo '<label><input type="checkbox" id="custom_background" name="custom_background" value="1" '.$checked.' /> Activate the Custom Background</label>';
 }
+
+// Contact Form Options
+function brewsite_contact_section() {
+    echo 'Activate/Deactivate Built-In Theme Contact Form';
+}
+
+function brewsite_activate_contact() {
+    $option = get_option( 'activate_contact_form' );
+    $checked = ( @$option == 1 ? 'checked' : '' );
+    echo '<label><input type="checkbox" id="activate_contact_form" name="activate_contact_form" value="1" '.$checked.' /></label>';
+}
+
 /*
+function brewsite_post_formats() {
+    $options = get_option( 'post_formats' );
+	$formats = array( 'aside', 'gallery', 'link', 'image', 'quote', 'status', 'video', 'audio', 'chat' );
+	$output = '';
+	foreach ( $formats as $format ){
+		$checked = ( @$options[$format] == 1 ? 'checked' : '' );
+		$output .= '<label><input type="checkbox" id="'.$format.'" name="post_formats['.$format.']" value="1" '.$checked.' /> '.$format.'</label><br>';
+	}
+	echo $output;
+}
+
 function brewsite_post_formats_callback( $input ){
     return $input;
 }
 */
-?>
