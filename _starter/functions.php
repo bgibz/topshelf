@@ -183,10 +183,23 @@ require get_template_directory() . '/inc/theme_support.php';
 require get_template_directory() . '/inc/custom_post_type.php';
 
 /**
+ * Custom nav menu
+ */
+function brewsite_nav_menu() {
+	register_nav_menu('nav-menu',__( 'Nav Bar Menu' ));
+  }
+add_action( 'init', 'brewsite_nav_menu' );
+
+/**
  * Load Jetpack compatibility file.
  */
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
+
+/**
+* Walker
+*/
+require get_template_directory() . '/inc/walker.php';
 
 ?>
