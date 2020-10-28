@@ -7,6 +7,46 @@
  * @package _Starter
  */
 
+ /**
+ * Implement the Custom Header feature.
+ */
+require get_template_directory() . '/inc/custom-header.php';
+
+/**
+ * Custom template tags for this theme.
+ */
+require get_template_directory() . '/inc/template-tags.php';
+
+/**
+ * Functions which enhance the theme by hooking into WordPress.
+ */
+require get_template_directory() . '/inc/template-functions.php';
+
+/**
+ * Customizer additions.
+ */
+require get_template_directory() . '/inc/customizer.php';
+
+/**
+ * Custom Admin panel
+ */
+require get_template_directory() . '/inc/function_admin.php';
+require get_template_directory() . '/inc/enqueue.php';
+require get_template_directory() . '/inc/theme_support.php';
+require get_template_directory() . '/inc/custom_post_type.php';
+
+/**
+* Walker
+*/
+require get_template_directory() . '/inc/walker.php';
+
+
+/**
+ * Shortcodes
+ */
+require get_template_directory() . '/inc/shortcodes.php';
+
+
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
 	define( '_S_VERSION', '1.0.0' );
@@ -154,33 +194,6 @@ function _starter_scripts() {
 }
 add_action( 'wp_enqueue_scripts', '_starter_scripts' );
 
-/**
- * Implement the Custom Header feature.
- */
-require get_template_directory() . '/inc/custom-header.php';
-
-/**
- * Custom template tags for this theme.
- */
-require get_template_directory() . '/inc/template-tags.php';
-
-/**
- * Functions which enhance the theme by hooking into WordPress.
- */
-require get_template_directory() . '/inc/template-functions.php';
-
-/**
- * Customizer additions.
- */
-require get_template_directory() . '/inc/customizer.php';
-
-/**
- * Custom Admin panel
- */
-require get_template_directory() . '/inc/function_admin.php';
-require get_template_directory() . '/inc/enqueue.php';
-require get_template_directory() . '/inc/theme_support.php';
-require get_template_directory() . '/inc/custom_post_type.php';
 
 /**
  * Custom nav menu
@@ -197,9 +210,5 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
-/**
-* Walker
-*/
-require get_template_directory() . '/inc/walker.php';
 
 ?>

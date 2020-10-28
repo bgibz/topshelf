@@ -12,11 +12,6 @@
  */
 
 class Walker_Nav_Primary extends Walker_Nav_Menu {
-    /*
-    function start_lvl( &$output, $depth=0, $args = array() ) {
-
-    }
-    */
 
     function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
         //var_dump($item);
@@ -50,13 +45,4 @@ class Walker_Nav_Primary extends Walker_Nav_Menu {
 		$output .= apply_filters ( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
 
     }
-    /*
-    function end_el() {
-
-    }
-
-    function end_lvl() {
-
-    }
-    */
 }
