@@ -7,6 +7,8 @@
  * @package _Starter
  */
 
+require get_template_directory() . '/inc/ajax.php';
+
  /**
  * Implement the Custom Header feature.
  */

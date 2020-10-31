@@ -1,8 +1,8 @@
-<form action="#" method="post">
+<form id="brewsiteContactForm" action="#" method="post" data-url="<?php echo admin_url('admin-ajax.php')?>">
 
 	<div class="form-group">
         <label for="name">Your Name:</label>
-		<input type="text" class="form-control" placeholder="Enter Name" id="name" name="name" required="required">
+		<input type="text" class="form-control" placeholder="Enter Name" id="contact_name" name="contact_name" required="required">
 	</div>
 	<div class="form-group">
         <label for="email">Your Email:</label>
