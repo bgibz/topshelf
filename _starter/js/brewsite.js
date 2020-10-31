@@ -36,10 +36,16 @@ jQuery(document).ready(function($) {
       success: function(response) {
         if (response == 0) {
           // Something went wrong
-          console.log("Something went wrong...");
+          error_msg =
+            "Something went wrong, please try to resubmit the form. If the error persists, drop us a line at: _contact_email_";
+          $("#error-msg").append(error_msg);
+          $("#error-msg").show();
         } else {
           // Success!
-          console.log("Success!");
+          $("#brewsiteContactForm").hide();
+          success_msg = "<h3>Thank you for your message</h3>";
+          $("#contact-form-parent-div").html(success_msg);
+          $("#contact-form-parent-div").css("text-align", "center");
         }
       }
     });
