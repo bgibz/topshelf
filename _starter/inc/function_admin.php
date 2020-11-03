@@ -49,8 +49,10 @@ function brewsite_custom_settings() {
     
     // Contact Form Options
     register_setting( 'brewsite-contact-options', 'activate_contact_form');
+    register_setting( 'brewsite-contact-options', 'contact-form-target');
     add_settings_section( 'brewsite-contact-section', 'Contact Form', 'brewsite_contact_section', 'brewsite_theme_contact' );
     add_settings_field( 'activate-contact-form', 'Activate Contact Form', 'brewsite_activate_contact', 'brewsite_theme_contact', 'brewsite-contact-section' );
+    add_settings_field( 'contact-form-target', 'Target E-mail For Contact Messages', 'brewsite_contact_target', 'brewsite_theme_contact', 'brewsite-contact-section' );
     
     /*
     register_setting( 'brewsite-custom-css-options', 'brewsite_css', 'brewsite_sanitize_custom_css' );
@@ -141,6 +143,11 @@ function brewsite_activate_contact() {
     $option = get_option( 'activate_contact_form' );
     $checked = ( @$option == 1 ? 'checked' : '' );
     echo '<label><input type="checkbox" id="activate_contact_form" name="activate_contact_form" value="1" '.$checked.' /></label>';
+}
+
+function brewsite_contact_target() {
+    $target_inbox = esc_attr( get_option( 'contact-form-target' ) );
+    echo '<input type="text" name="contact-form-target" value="'.$target_inbox.'" placeholder="Target Inbox for Contact Form" />';
 }
 
 /*

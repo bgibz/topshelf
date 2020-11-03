@@ -969,3 +969,7 @@ textarea {
 .site-footer a:visited {
   color: #fff9c0;
 }
+
+.form-error-alert {
+  margin: 0px 5px 5px 0px;
+}

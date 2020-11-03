@@ -8,6 +8,8 @@ jQuery(document).ready(function($) {
   $("#brewsiteContactForm").on("submit", function(e) {
     e.preventDefault();
 
+    $(".form-error-alert").html("");
+    $("#error-msg").hide();
     var contactForm = $(this);
 
     var name = contactForm.find("#contact_name").val();
@@ -21,6 +23,8 @@ jQuery(document).ready(function($) {
       return;
     }
 
+    contactForm.find("input, button, textarea").attr("disabled", "disabled");
+
     $.ajax({
       url: ajaxurl,
       type: "post",
@@ -31,15 +35,18 @@ jQuery(document).ready(function($) {
         action: "brewsite_submit_contact_form"
       },
       error: function(response) {
-        console.log(response);
+        error_msg = "We're sorry, but something seems to have gone wrong!";
+        $("#error-msg").append(error_msg);
+        $("#error-msg").show();
+        contactForm.find("input, button, textarea").removeAttr("disabled");
       },
       success: function(response) {
         if (response == 0) {
           // Something went wrong
-          error_msg =
-            "Something went wrong, please try to resubmit the form. If the error persists, drop us a line at: _contact_email_";
+          error_msg = "We're sorry, but something seems to have gone wrong!";
           $("#error-msg").append(error_msg);
           $("#error-msg").show();
+          contactForm.find("input, button, textarea").removeAttr("disabled");
         } else {
           // Success!
           $("#brewsiteContactForm").hide();

@@ -13,7 +13,7 @@
 			<label for="message">Leave Us A Message:</label>
 			<textarea name="message" id="message" class="form-control" required="required" placeholder="Enter Your Message" rows="4" style="resize:none;"></textarea>
 		</div>
+		<div id="error-msg" class="alert alert-danger form-error-alert" style="display:none;"></div>
 		<button type="submit" class="btn btn-primary">Submit</button>
-		<div id="error-msg" class="alert alert-danger" style="display:none;"></div>
 	</form>
 </div>
