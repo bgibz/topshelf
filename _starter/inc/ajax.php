@@ -9,6 +9,7 @@
  add_action( 'wp_ajax_nopriv_brewsite_submit_contact_form', 'brewsite_submit_contact_form' );
  add_action( 'wp_ajax_brewsite_submit_contact_form', 'brewsite_submit_contact_form');
 
+
  function brewsite_submit_contact_form() {
      $title = wp_strip_all_tags($_POST["name"]);
      $name =wp_strip_all_tags( $_POST["name"]);
@@ -31,9 +32,9 @@
      if ($post_ID > 0) {
          $target_inbox = esc_attr( get_option( 'contact-form-target' ) );
          $subject = 'New Contact Form Submission';
-         $mail_msg = $message . '\r\n From: ' . $title . '\r\n Email: ' . $email;
+         $mail_msg = $message . "\r\n" . 'From: ' . $title . "\r\n" . 'Email: ' . $email;
          $headers = array('Content-Type: text/html; charset=UTF-8');
-         $mail_flag = $wp_mail( $target_inbox, $subject, $mail_msg, $headers );
+         $mail_flag = mail( $target_inbox, $subject, $mail_msg, $headers );
          if ($mail_flag) {
              echo $post_ID;
          } else {
