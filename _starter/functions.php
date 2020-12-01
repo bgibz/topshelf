@@ -206,6 +206,59 @@ function brewsite_nav_menu() {
 add_action( 'init', 'brewsite_nav_menu' );
 
 /**
+ *  Custom post type for beers
+ */
+
+require  get_template_directory() . '/inc/beer_post.php';
+/* 
+function brewsite_beer_post_type(){
+	$labels = array(
+		'name' 				=> 'Beer',
+		'singular_name' 	=> 'Beer',
+		'add_new' 			=> 'Add Beer',
+		'all_items' 		=> 'All Beers',
+		'add_new_item' 		=> 'Add New Beer',
+		'edit_item' 		=> 'Edit Beer',
+		'new_item' 			=> 'New Beer',
+		'view_item' 		=> 'View Beer',
+		'search_item' 		=> 'Search Beers',
+		'not_found'			=> 'No Beers Found',
+		'not_found_in_trash' 	=> 'No Beers found in trash',
+		'parent_item_Colon' 	=> 'Parent Beer'
+	);
+	$args =array(
+	'labels' => $labels,
+	$public => true,
+	'hierarchical'         		=> true,
+        'public'              	=> true,
+        'show_ui'             	=> true,
+        'show_in_menu'        	=> true,
+        'show_in_nav_menus'   	=> true,
+        'show_in_admin_bar'   	=> true,
+        'menu_position'       	=> 5,
+        'can_export'          	=> true,
+        'has_archive'         	=> true,
+        'exclude_from_search' 	=> false,
+		'publicly_queryable'  	=> true,
+		'query_var'			  	=> true,
+        'capability_type'     	=> 'post',
+		'show_in_rest' 		  	=> true,
+		'supports'				=> array(
+			'title',
+			'editor',
+			'excerpt',
+			'thumbnail',
+			'custom-fields'
+		)
+    );
+     
+    // Registering Custom Post Type
+    register_post_type( 'beer', $args );
+}
+
+add_action('init', 'brewsite_beer_post_type');
+*/
+/**
  * Load Jetpack compatibility file.
  */
 if ( defined( 'JETPACK__VERSION' ) ) {
