@@ -2,7 +2,7 @@
 /** 
  * 
  * A custom post type for beers consisting of a name, description,
- * style, media attachment, and other info
+ * style, and other info
  * 
  * 
  */
@@ -61,7 +61,7 @@ add_action('init', 'brewsite_beer_post_type');
     add_meta_box(
         "post_metadata_beer_name", // div id containing rendered fields
         "Beer Name", // section heading displayed as text
-        "post_meta_box_beer_name", // callback function to render fields
+        "beer_meta_box", // callback function to render fields
         "beer", // name of post type on which to render fields
         "normal", // location on the screen
         "low" // placement priority
@@ -69,9 +69,46 @@ add_action('init', 'brewsite_beer_post_type');
  }
  add_action( "admin_init", "add_beer_meta_boxes");
 
- function post_meta_box_beer_name(){
-    global $post;
+ function beer_meta_box($post){
     $custom = get_post_custom( $post->ID );
     $beer_name = $custom[ "_post_beer_name" ][ 0 ];
-    echo "<label for='_post_beer_name'>Product Name: <input type='text' name='_post_beer_name' value='".$beer_name."' placeholder='Product Name' /></label>";
+    $beer_abv = $custom[ "_post_beer_abv" ][ 0 ];
+    $beer_style = $custom[ "_post_beer_style" ][ 0 ];
+    ?>
+    <table id='beer_meta' style='width: 100%;'>
+        <thead></thead>
+        <tbody>
+        <tr>
+        <td class="left">Product Name:</td>
+        <td><input type='text' name='_post_beer_name' value='<?php print $beer_name?>' placeholder='Product Name' /></td>
+        </tr>
+        <tr>
+        <td class="left">ABV:</td>
+        <td><input type='text' name='_post_beer_abv' value='<?php print $beer_abv?>' placeholder='0%'/></td>
+        </tr>
+        <tr>
+        <td class="left">Style:</td>
+        <td><input type='text' name='_post_beer_style' value='<?php print $beer_style?>' placeholder='Pilsner'/></td>
+        </tr>
+        </tbody>  
+    </table>
+    <?php
 }
+
+function save_beer_meta_boxes(){
+    global $post;
+    if ( defined ('DOING_AUTOSAVE') && DOING_AUTOSAVE ) {
+        return;
+    }
+    if (get_post_status( $post->ID ) === 'auto-draft' ){
+        return;
+    }
+    update_post_meta( $post->ID, "_post_beer_name", sanitize_text_field( $_POST[ "_post_beer_name" ] ) );
+    update_post_meta( $post->ID, "_post_beer_abv", sanitize_text_field( $_POST[ "_post_beer_abv" ] ) );
+    update_post_meta( $post->ID, "_post_beer_style", sanitize_text_field( $_POST[ "_post_beer_style" ] ) );
+}
+add_action( 'save_post', 'save_beer_meta_boxes' );
+
+
+
+
